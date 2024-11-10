@@ -57,6 +57,7 @@ const CameraHandler = ({ slideDistance }) => {
 
   /**setLookAt 메서드: 카메라의 위치(x, y, z)와 카메라가 바라볼 목표 위치(targetX, targetY, targetZ)를 설정합니다*/
   const moveToSlide = async () => {
+    //밑의 CameraControls를 제어
     await cameraControls.current.setLookAt(
       lastSlide.current * (viewport.width + slideDistance),
       3,
@@ -102,7 +103,7 @@ const CameraHandler = ({ slideDistance }) => {
     }, 200);
     return () => clearTimeout(resetTimeout);
   }, [viewport]);
-  //TODO: dd
+
   useEffect(() => {
     if (lastSlide.current === slide) {
       return;
@@ -128,6 +129,7 @@ const CameraHandler = ({ slideDistance }) => {
 };
 
 export const Experience = () => {
+  //useThree훅 사용하여 현재 뷰포트의 크기를 가져온다.
   const viewport = useThree((state) => state.viewport);
   const { slideDistance } = useControls({
     slideDistance: {
@@ -138,10 +140,13 @@ export const Experience = () => {
   });
   return (
     <>
+      {/*ambientLight: 조명, intensity: 빛의 강도  */}
       <ambientLight intensity={0.2} />
+      {/* city 프리셋 환경 적용, 3d씬에 배경과 환경 조명을 자동으로 설정 */}
       <Environment preset={"city"} />
+      {/*slideDistance값을 받아와서 카메라의 디옹이나 회전을 제어함  */}
       <CameraHandler slideDistance={slideDistance} />
-      {/* MAIN WORLD */}
+      {/* 화면  전환시 디스플레이 위에 뜨는 도형 정의 */}
       <group>
         <mesh position-y={viewport.height / 2 + 1.5}>
           <sphereGeometry args={[1, 32, 32]} />
@@ -163,26 +168,30 @@ export const Experience = () => {
           <MeshDistortMaterial color={scenes[2].mainColor} speed={3} />
         </Dodecahedron>
       </group>
-
+      {/*평면 정의*/}
       <Grid
-        position-y={-viewport.height / 2}
-        sectionSize={1}
+        position-y={-viewport.height / 2} //그리드y축 설정, 화명 중앙에서 아래쪽으로 배치
+        sectionSize={1} //구획의 크기(타일의 크기), 일정한 간격으로 구획들로 나누어짐
         sectionColor={"purple"}
-        sectionThickness={1}
-        cellSize={0.5}
+        sectionThickness={1} //구획의 두께
+        cellSize={0.5} //그리드 각 셀의 크기(구획을 세분화)
         cellColor={"#6f6f6f"}
         cellThickness={0.6}
-        infiniteGrid
+        infiniteGrid //그리드를 무한히 반복하도록 설정. 끝이 화면애 닿으면서 자동으로 그리드 반복
+        //그리드의 페이드 효과(사라지는 효과) 시작되는 거리 설정, 화면에서 멀어질 수록 흐릿해지고 사라지는 느낌, 지평선을 정의한다고 생각하면 편함
         fadeDistance={50}
-        fadeStrength={5}
+        fadeStrength={5} //그리드의 페이드 강도를 설정
       />
       {scenes.map((scene, index) => (
         <mesh
           key={index}
           position={[index * (viewport.width + slideDistance), 0, 0]}
         >
+          {/* 디스플레이 화면 정의 */}
           <planeGeometry args={[viewport.width, viewport.height]} />
+          {/* 기본적인 재질을 설정하는 컴포넌트, toneMapped: 톤 매핑 사용 x */}
           <meshBasicMaterial toneMapped={false}>
+            {/* 다른 씬의 렌더링 결과를 텍스처로 받아와서 현재 3d객체에 입힐 때 사용함, map텍스처로 적용, 텍스처를 평면에 입힐 때 사용함  */}
             <RenderTexture attach="map">
               <Scene {...scene} />
             </RenderTexture>
