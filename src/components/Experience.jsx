@@ -55,6 +55,7 @@ const CameraHandler = ({ slideDistance }) => {
     },
   });
 
+  /**setLookAt 메서드: 카메라의 위치(x, y, z)와 카메라가 바라볼 목표 위치(targetX, targetY, targetZ)를 설정합니다*/
   const moveToSlide = async () => {
     await cameraControls.current.setLookAt(
       lastSlide.current * (viewport.width + slideDistance),
@@ -86,6 +87,7 @@ const CameraHandler = ({ slideDistance }) => {
     );
   };
 
+  //처음 앱 진입시 카메라 포지션 세팅
   useEffect(() => {
     // Used to reset the camera position when the viewport changes
     const resetTimeout = setTimeout(() => {
@@ -100,7 +102,7 @@ const CameraHandler = ({ slideDistance }) => {
     }, 200);
     return () => clearTimeout(resetTimeout);
   }, [viewport]);
-
+  //TODO: dd
   useEffect(() => {
     if (lastSlide.current === slide) {
       return;
