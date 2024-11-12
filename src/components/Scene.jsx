@@ -35,14 +35,14 @@ export const Scene = ({ mainColor, path, ...props }) => {
       <group {...props} dispose={null}>
         {/*PerspectiveCamera: 원근 카메라 사용, 3d씬을 렌더링, 
         near: 카메라의 근거리 클리핑 평면을 설정-> 얼마나 가까운 객체까지 렌더링 할지 결정   */}
-        <PerspectiveCamera makeDefault position={[3, 3, 8]} near={0.5} />
+        <PerspectiveCamera makeDefault position={[5, 5, 6]} near={0.5} />
         {/*OrbitControls: 카메라 제어를 위한 컴포넌트, 씬을 확대축소 회전 할 수 있게 도와줌  */}
         <OrbitControls
           autoRotate //카메라 자동회전
           enablePan={false} //팬 (이동) 기능을 비활성화
-          maxPolarAngle={DEG2RAD * 75} //카메라의 수직 회전 제한
-          minDistance={6} //minDistance,maxDistance: 카메라의 최소 및 최대 거리
-          maxDistance={10}
+          maxPolarAngle={DEG2RAD * 89} //카메라의 수직 회전 제한
+          minDistance={0.1} //minDistance,maxDistance: 카메라의 최소 및 최대 거리
+          maxDistance={2.7}
           autoRotateSpeed={0.5} //자동회전속도
         />
         {/* 로드된 .glb모델을 씬에 렌더링 */}
@@ -122,6 +122,6 @@ export const Scene = ({ mainColor, path, ...props }) => {
   );
 };
 
-useGLTF.preload("/models/cybertruck_scene.glb");
-useGLTF.preload("/models/model3_scene.glb");
-useGLTF.preload("/models/semi_scene.glb");
+useGLTF.preload("/models/Scene1.glb");
+useGLTF.preload("/models/Scene2.glb");
+useGLTF.preload("/models/Scene3.glb");

@@ -15,28 +15,28 @@ import { Scene } from "./Scene";
 
 export const scenes = [
   {
-    path: "models/cybertruck_scene.glb",
+    path: "models/Scene1.glb",
     mainColor: "#f9c0ff",
-    name: "Cybertruck",
-    description:
-      "Better utility than a truck with more performance than a sports car",
-    price: 72000,
+    name: "2024년 대동제 웹사이트",
+    description: "한림대학교 대동제를 위해 준비한 프로젝트입니다.",
+    people: ["노기훈", "지우림", "박준서", "김대성", "김선우"],
     range: 660,
   },
   {
-    path: "models/model3_scene.glb",
+    path: "models/Scene2.glb",
     mainColor: "#c0ffe1",
-    name: "Model 3",
-    description: "The car of the future",
-    price: 29740,
+    name: "리밍",
+    description:
+      "리밍을 통해 잘 맞는 사람을 찾고 쉽게 프로젝트를 시작 해보세요.",
+    people: ["노기훈", "지우림", "박준서"],
     range: 576,
   },
   {
-    path: "models/semi_scene.glb",
+    path: "models/Scene3.glb",
     mainColor: "#ffdec0",
-    name: "Semi",
-    description: "The Future of Trucking",
-    price: 150000,
+    name: "Quizza",
+    description: "스스로 문제를 제출하고 평가하기 위한 최적의 웹사이트",
+    people: ["노기훈"],
     range: 800,
   },
 ];
